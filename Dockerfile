@@ -9,7 +9,7 @@ FROM ubuntu:16.04
 # Example run
 # docker run --rm -it -v $(pwd):/host ffmpeg-compiler bash -c "cp /root/bin/ffmpeg /root/bin/ffprobe /root/bin/ffserver /host && chown $(id -u):$(id -g) /host/ffmpeg && chown $(id -u):$(id -g) /host/ffprobe && chown $(id -u):$(id -g) /host/ffserver"
 
-MAINTAINER srwareham
+MAINTAINER rvats
 
 # Get the dependencies
 RUN set -x \
@@ -29,6 +29,7 @@ RUN set -x \
 && make distclean \
 && apt-get -y install libx264-dev \
 && apt-get -y install cmake mercurial \
+&& ls $HOME/ffmpeg_build \
 && echo COMPLETED PART 1
 
 RUN set -x \
@@ -49,6 +50,7 @@ RUN set -x \
 && make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
 && make distclean \
+&& ls $HOME/ffmpeg_build \
 && echo COMPLETED PART 2
 
 RUN set -x \
@@ -63,6 +65,7 @@ RUN set -x \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
 && make clean
+&& ls $HOME/ffmpeg_build
 
 #install ffmpeg
 RUN cd ~/ffmpeg_sources \
@@ -71,12 +74,6 @@ RUN cd ~/ffmpeg_sources \
 && cd ffmpeg \
 && PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig" ./configure \
   --prefix="$HOME/ffmpeg_build" \
-  --pkg-config-flags="--static" \
-  --extra-libs=-static \
-  --extra-cflags=--static \
-  --extra-cflags="-I$HOME/ffmpeg_build/include" \
-  --extra-ldflags="-L$HOME/ffmpeg_build/lib" \
-  --extra-libs="-lpthread -lm" \
   --bindir="$HOME/bin" \
   --enable-gpl \
   --enable-libfdk-aac \
@@ -92,4 +89,5 @@ RUN cd ~/ffmpeg_sources \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
 && make distclean \
+&& ls $HOME/ffmpeg_build \
 && hash -r
