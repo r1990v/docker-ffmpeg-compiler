@@ -64,8 +64,8 @@ RUN set -x \
 && PATH="$HOME/bin:$PATH" ./configure --prefix="$HOME/ffmpeg_build" --disable-examples --disable-unit-tests \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
-&& make clean
-&& ls $HOME/ffmpeg_build
+&& make clean \
+&& ls $HOME/ffmpeg_build/bin
 
 #install ffmpeg
 RUN cd ~/ffmpeg_sources \
@@ -89,5 +89,5 @@ RUN cd ~/ffmpeg_sources \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
 && make distclean \
-&& ls $HOME/ffmpeg_build \
+&& ls $HOME/ffmpeg_build/bin \
 && hash -r
