@@ -69,10 +69,9 @@ RUN set -x \
 
 #install ffmpeg
 RUN cd ~/ffmpeg_sources \
-&& wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 \
-&& tar xjvf ffmpeg-snapshot.tar.bz2 \
+&& git clone https://github.com/FFmpeg/FFmpeg.git ffmpeg \
 && cd ffmpeg \
-&& PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig" ./configure \
+&& PATH="$HOME/bin:$PATH" ./configure \
   --prefix="$HOME/ffmpeg_build" \
   --bindir="$HOME/bin" \
   --enable-gpl \
@@ -86,7 +85,7 @@ RUN cd ~/ffmpeg_sources \
   --enable-libx264 \
   --enable-libx265 \
   --enable-nonfree \
-&& PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
+&& PATH="$HOME/bin:$PATH" \
 && make install \
 && make distclean \
 && ls $HOME/ffmpeg_build/bin \
