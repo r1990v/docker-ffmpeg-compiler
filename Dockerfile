@@ -74,17 +74,6 @@ RUN cd ~/ffmpeg_sources \
 && PATH="$HOME/bin:$PATH" ./configure \
   --prefix="$HOME/ffmpeg_build" \
   --bindir="$HOME/bin" \
-  --enable-gpl \
-  --enable-libfdk-aac \
-  --enable-libfreetype \
-  --enable-libmp3lame \
-  --enable-libopus \
-  --enable-libtheora \
-  --enable-libvorbis \
-  --enable-libvpx \
-  --enable-libx264 \
-  --enable-libx265 \
-  --enable-nonfree \
 && PATH="$HOME/bin:$PATH" \
 && make install \
 && make distclean \
