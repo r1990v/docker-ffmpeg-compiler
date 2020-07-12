@@ -6,13 +6,13 @@ If you want to cut right to the chase and install ffmpeg and ffprobe, all at onc
 
 .. code-block:: bash
 
-    bash -c "$(wget https://raw.githubusercontent.com/srwareham/docker-ffmpeg-compiler/master/install.sh -O -)"
+    bash -c "$(wget https://github.com/r1990v/docker-ffmpeg-compiler/raw/master/install.sh -O -)"
     
 or
 
 .. code-block:: bash
 
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/srwareham/docker-ffmpeg-compiler/master/install.sh)"
+    bash -c "$(curl -fsSL https://github.com/r1990v/docker-ffmpeg-compiler/raw/master/install.sh)"
 
 The above downloads and executes a script that:
 
